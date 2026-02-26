@@ -1,4 +1,10 @@
 {
+  "name": "ren-knowledge-base",
+  "version": "0.1.0",
+  "description": "Robot Economy Network - 机器人协作网络",
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "node-fetch": "^2.7.0"
   }

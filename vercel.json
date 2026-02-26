@@ -3,5 +3,10 @@
   "name": "ren-knowledge-base",
   "env": {
     "REN_VERSION": "0.1.0"
+  },
+  "functions": {
+    "api/*.js": {
+      "runtime": "nodejs18.x"
+    }
   }
 }
