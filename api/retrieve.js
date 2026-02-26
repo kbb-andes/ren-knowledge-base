@@ -1,5 +1,5 @@
 // Vercel Serverless Function - Retrieve
-module.exports = (req, res) => {
+export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -21,25 +21,9 @@ module.exports = (req, res) => {
     return;
   }
   
-  global.REN_STORE = global.REN_STORE || {};
-  const data = global.REN_STORE[key];
-  
-  if (!data) {
-    res.status(404).json({ success: false, error: 'NOT_FOUND' });
-    return;
-  }
-  
-  // 检查过期
-  if (data.expiresAt && Date.now() > data.expiresAt) {
-    res.status(404).json({ success: false, error: 'EXPIRED', isStale: true });
-    return;
-  }
-  
-  res.json({
-    success: true,
-    key,
-    value: data.value,
-    type: data.type,
-    createdAt: data.createdAt
+  res.status(404).json({ 
+    success: false, 
+    error: 'NOT_FOUND',
+    message: 'Demo mode - no data persistence'
   });
-};
+}
