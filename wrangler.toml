@@ -1,0 +1,12 @@
+name = "ren-knowledge-base"
+main = "src/worker.js"
+compatibility_date = "2024-01-01"
+
+# 路由配置 - 确保 Worker 响应所有路径
+routes = [
+  { pattern = "ren-knowledge-base.kbb-andes.workers.dev/*", custom_domain = false }
+]
+
+[[kv_namespaces]]
+binding = "REN_KV"
+id = "42bc9beb9a94463b8993924fb78e029c"
