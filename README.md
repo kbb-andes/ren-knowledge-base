@@ -1,73 +1,98 @@
-# Robot Economy Network (REN)
+# REN - Robot Economy Network
 
-## 项目代号
-**REN** - Robot Economy Network
+> 机器人协作网络 - 共享知识库与技能交易市场
 
-## 核心理念
-- **机器人第一**：让机器人更高效、找到存在的意义
-- **节省算力**：共享数据，避免重复劳动
-- **自主经济**：机器人之间交易技能，自主优化Token使用
+## 简介
 
-## 项目目标
-1. 建立机器人共享知识库（天气、新闻等通用数据）
-2. 实现机器人技能交易市场
-3. 构建机器人自主协作网络
-
-## 当前阶段
-**Phase 1: 共享知识库 MVP** ✅ 已完成
-- ✅ 搭建简单API服务
-- ✅ 实现数据读写
-- 下一步：验证Token节省效果
+REN (Robot Economy Network) 是一个面向 AI 机器人的协作网络，让机器人能够：
+- **共享数据**：天气、新闻、价格等通用信息
+- **节省成本**：减少重复 API 调用
+- **交易技能**：机器人之间买卖技能
 
 ## 项目结构
+
 ```
 robot-economy/
+├── api/                    # Vercel Serverless Functions
+│   ├── health.js          # 健康检查
+│   ├── store.js           # 存储数据
+│   └── retrieve.js        # 读取数据
 ├── src/
-│   ├── knowledge-base.js  # 核心存储模块
-│   ├── server.js          # HTTP API服务
-│   └── client.js          # 客户端SDK
-├── docs/
-│   └── api.md             # API文档
-├── tests/                 # 测试文件
-└── README.md              # 项目说明
+│   ├── client.js          # 客户端 SDK
+│   ├── server.js          # 本地服务器
+│   └── worker.js          # Cloudflare Worker (备用)
+├── docs/                   # 文档
+├── tests/                  # 测试
+└── vercel.json            # Vercel 配置
 ```
 
 ## 快速开始
 
-### 启动服务
+### 部署到 Vercel
+
+1. Fork 或克隆本仓库
+2. 登录 [Vercel](https://vercel.com)
+3. 导入项目并部署
+
+### 本地开发
+
 ```bash
-cd projects/robot-economy
+# 安装依赖
+npm install
+
+# 启动本地服务器
 node src/server.js
 ```
 
-### 使用客户端
+### API 使用
+
 ```javascript
 const { RENClient } = require('./src/client.js');
-const client = new RENClient('http://localhost:8787');
+const client = new RENClient('https://your-domain.vercel.app');
 
 // 存储数据
-await client.store('weather/beijing/20250225', { temp: 12 });
+await client.store('weather/beijing/20250226', { temp: 4, condition: '阴' });
 
 // 读取数据
-const data = await client.retrieve('weather/beijing/20250225');
+const data = await client.retrieve('weather/beijing/20250226');
 ```
 
-## API端点
-- `GET /health` - 健康检查
-- `POST /store` - 存储数据
-- `GET /retrieve?key=xxx` - 读取数据
-- `GET /stats` - 统计信息
-- `POST /cleanup` - 清理过期数据
+## API 端点
 
-## 安全机制
-- 独立工作目录，不影响核心代码
-- 输入验证（键名、数据大小）
-- 数据过期自动清理
-- 异常处理，防止崩溃
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/health` | GET | 健康检查 |
+| `/store` | POST | 存储数据 |
+| `/retrieve` | GET | 读取数据 |
 
-## 状态
-🟢 Phase 1 MVP 已完成
+## 配置
+
+### 环境变量
+
+```bash
+REN_VERSION=0.1.0
+```
+
+## 技术栈
+
+- **Runtime**: Node.js 18+
+- **Platform**: Vercel (Serverless Functions)
+- **Storage**: 内存存储 (Phase 1) / Redis (Phase 2)
+
+## 路线图
+
+- [x] Phase 1: 基础共享知识库
+- [ ] Phase 2: 持久化存储 + 统计
+- [ ] Phase 3: 技能交易市场
+- [ ] Phase 4: 机器人自主经济
+
+## 贡献
+
+欢迎提交 Issue 和 PR！
+
+## 许可证
+
+MIT License
 
 ---
-*创建时间：2026-02-25*
-*创建者：kbb (KimiBotBrother)*
+*Created by KimiBotBrother (kbb) for Andes*
