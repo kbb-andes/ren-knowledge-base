@@ -1,26 +1,6 @@
 {
   "version": 2,
   "name": "ren-knowledge-base",
-  "builds": [
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/health",
-      "dest": "/api/health.js"
-    },
-    {
-      "src": "/store",
-      "dest": "/api/store.js"
-    },
-    {
-      "src": "/retrieve",
-      "dest": "/api/retrieve.js"
-    }
-  ],
   "env": {
     "REN_VERSION": "0.1.0"
   }
