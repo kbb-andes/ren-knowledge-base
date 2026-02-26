@@ -4,6 +4,17 @@
   "env": {
     "REN_VERSION": "0.1.0"
   },
+  "functions": {
+    "api/health.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/store.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/retrieve.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     { "source": "/health", "destination": "/api/health" },
     { "source": "/store", "destination": "/api/store" },
