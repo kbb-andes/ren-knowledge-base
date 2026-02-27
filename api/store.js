@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   
   try {
     const client = createClient({
-      url: process.env.STORAGE_URL
+      url: process.env.REDIS_URL
     });
     await client.connect();
     
