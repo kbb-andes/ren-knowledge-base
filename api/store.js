@@ -1,4 +1,10 @@
 // Vercel Serverless Function - Store
+// 配置为香港区域以优化国内访问
+export const config = {
+  runtime: 'edge',
+  regions: ['hkg1']  // 香港节点
+};
+
 export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -25,6 +31,7 @@ export default function handler(req, res) {
     success: true,
     key,
     type,
+    region: 'hkg1',
     message: 'Stored (demo mode - no persistence)'
   });
 }
