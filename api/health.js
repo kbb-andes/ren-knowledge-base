@@ -1,9 +1,4 @@
-// 配置为香港区域以优化国内访问
-export const config = {
-  runtime: 'edge',
-  regions: ['hkg1']  // 香港节点
-};
-
+// REN Health Check API
 export default function handler(request, response) {
   response.status(200).json({
     status: 'ok',
