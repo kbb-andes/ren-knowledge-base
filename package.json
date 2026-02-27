@@ -4,5 +4,8 @@
   "type": "module",
   "engines": {
     "node": "24.x"
+  },
+  "dependencies": {
+    "redis": "^4.6.0"
   }
 }
