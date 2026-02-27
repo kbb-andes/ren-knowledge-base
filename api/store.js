@@ -1,5 +1,7 @@
-// Vercel Serverless Function - Store
-export default function handler(req, res) {
+// Vercel Serverless Function - Store with Redis
+import { createClient } from 'redis';
+
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -21,11 +23,34 @@ export default function handler(req, res) {
     return;
   }
   
-  res.json({
-    success: true,
-    key,
-    type,
-    region: 'hkg1',
-    message: 'Stored (demo mode - no persistence)'
-  });
+  try {
+    const client = createClient({
+      url: process.env.STORAGE_URL
+    });
+    await client.connect();
+    
+    const stringValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
+    
+    if (ttl) {
+      await client.setEx(key, ttl, stringValue);
+    } else {
+      await client.set(key, stringValue);
+    }
+    
+    await client.disconnect();
+    
+    res.json({
+      success: true,
+      key,
+      type,
+      region: 'hkg1',
+      message: 'Stored successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'STORAGE_ERROR',
+      message: error.message
+    });
+  }
 }
